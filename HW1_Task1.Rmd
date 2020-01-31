@@ -28,25 +28,41 @@ showshoe_hares <- read_csv("showshoe_lter.csv")
 
 hares_wrangle <- showshoe_hares %>% 
   filter(sex %in% c("M", "F"))  %>% # look for anything in sex column that matching anything in this string, a way to get rid of NAs
-  drop_na("weight")
+  drop_na("weight") # remove NAs from "weight" column
   
 ```
 
-```{r, plot data}
+```{r, plot data, fig.align = 'center'}
 
 hare_boxplot <- ggplot(hares_wrangle, aes(x = sex, y = weight)) +
   geom_boxplot() +
   geom_jitter(width = 0.1, alpha = 0.3, aes(color = sex)) + # Width of jitter, opacity(alpha) of dots, color coding by sex
   theme_classic() +
-  labs (x = "Sex", y = "Body weight (g)", color = "Sex", title = "Box-and-Whisker Plot with Overlying Jitter of Showshoe Hares Body Mass", subtitle = "Corinna Hong") # Add axis labels, change legend title, add a plot title
+  labs (x = "Sex", y = "Body weight (g)", color = "Sex", title = "Box-and-Whisker Plot with Overlying Jitter of Showshoe Hare Body Mass")
 
 hare_boxplot
 
 ```
 
-```{r}
+```{r, summary statistics}
 
+hares_summary <- hares_wrangle %>% 
+  group_by(sex) %>% 
+  summarize(
+    mean = round(mean(weight), 2),
+    sd = round(sd(weight), 2),
+    n = length(sex)
+  )
 
+```
+
+```{r, finalize table}
+
+hares_table <- kable(hares_summary, caption = "Summary Table of Showshoe Hares", 
+                     col.names = c("Sex","Mean Weight (g)","Standard Deviation (g)","Sample Size")) %>% # rename columns
+  kable_styling(full_width = F, position = "center") # Decrease table width and centers it
+
+hares_table
 
 ```
 
