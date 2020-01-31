@@ -1,0 +1,52 @@
+---
+title: "HW1_Task1"
+author: "Corinna Hong"
+date: "January 29, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+```{r, load packages}
+
+library(tidyverse)
+library(kableExtra)
+
+```
+
+```{r, read in data}
+
+showshoe_hares <- read_csv("showshoe_lter.csv")
+
+```
+
+```{r, wrangle data}
+
+hares_wrangle <- showshoe_hares %>% 
+  filter(sex %in% c("M", "F"))  %>% # look for anything in sex column that matching anything in this string, a way to get rid of NAs
+  drop_na("weight")
+  
+```
+
+```{r, plot data}
+
+hare_boxplot <- ggplot(hares_wrangle, aes(x = sex, y = weight)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.1, alpha = 0.3, aes(color = sex)) + # Width of jitter, opacity(alpha) of dots, color coding by sex
+  theme_classic() +
+  labs (x = "Sex", y = "Body weight (g)", color = "Sex", title = "Box-and-Whisker Plot with Overlying Jitter of Showshoe Hares Body Mass", subtitle = "Corinna Hong") # Add axis labels, change legend title, add a plot title
+
+hare_boxplot
+
+```
+
+```{r}
+
+
+
+```
+
