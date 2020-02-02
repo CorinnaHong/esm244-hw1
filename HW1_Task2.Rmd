@@ -1,0 +1,42 @@
+---
+title: "HW1_Task2"
+author: "Corinna Hong"
+date: "February 1, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+```{r, load packages}
+
+library(tidyverse)
+library(janitor)
+
+```
+
+```{r, read in data}
+
+nutrients <- read_csv("usda_nutrients.csv")
+
+```
+
+```{r, wrangle data}
+
+nutrients_wrangle <- nutrients %>% 
+  clean_names() %>%
+  filter(food_group == "Legumes and Legume Products") %>% 
+  select(food_group, energy_kcal:zinc_mg)
+
+```
+
+```{r}
+
+nutrients_pca <- prcomp(nutrients_wrangle, scale = TRUE)
+
+```
+

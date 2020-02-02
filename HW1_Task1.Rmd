@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 library(tidyverse)
 library(kableExtra)
+library(janitor)
 
 ```
 
@@ -24,12 +25,18 @@ showshoe_hares <- read_csv("showshoe_lter.csv")
 
 ```
 
-```{r, wrangle data}
+```{r}
+
+unique(showshoe_hares$sex) # check unique values of `sex` column in original data
 
 hares_wrangle <- showshoe_hares %>% 
-  filter(sex %in% c("M", "F"))  %>% # look for anything in sex column that matching anything in this string, a way to get rid of NAs
-  drop_na("weight") # remove NAs from "weight" column
-  
+  filter(!is.na(sex)) %>% # remove NAs in sex column %>% 
+  mutate(sex = str_to_upper(sex)) %>% 
+  filter(sex %in% c("M", "F"))  %>% # look for anything in sex column matching "M" or "F" This is how I am getting rid of "?" and "PF"
+  filter(!is.na(weight)) # remove NAs in weight column
+
+unique(hares_wrangle$sex) # check unique values of 'sex' column in wrangled data
+
 ```
 
 ```{r, plot data, fig.align = 'center'}
