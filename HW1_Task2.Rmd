@@ -14,12 +14,18 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ```{r, load packages}
 
+# Load packages
+
 library(tidyverse)
 library(janitor)
+library(naniar) # to examine NAs
+library(ggfortify) # for biplot
 
 ```
 
 ```{r, read in data}
+
+# Read in data
 
 nutrients <- read_csv("usda_nutrients.csv")
 
@@ -27,16 +33,47 @@ nutrients <- read_csv("usda_nutrients.csv")
 
 ```{r, wrangle data}
 
+# Wrangle data
+
 nutrients_wrangle <- nutrients %>% 
   clean_names() %>%
   filter(food_group == "Legumes and Legume Products") %>% 
-  select(food_group, energy_kcal:zinc_mg)
+  select(energy_kcal:zinc_mg)
+
+```
+
+```{r, explore missings}
+
+# Explore missings before running PCA
+
+naniar::gg_miss_var(nutrients_wrangle) # graph to show you how many NA's for each variable (there are none for the data I have selected)
+
+## FIND A WAY TO HIDE THIS OUTPUT
+
+```
+
+```{r, run PCA}
+
+# PCA for nutrients in Legumes and Legume products
+
+nutrients_pca <- prcomp(nutrients_wrangle, scale = TRUE)
+nutrients_pca # Gives loading for every PC
+summary(nutrients_pca) # Proportion of variance explained by each PC
+
+# FIND WAY TO HIDE OUTPUT 
 
 ```
 
 ```{r}
 
-nutrients_pca <- prcomp(nutrients_wrangle, scale = TRUE)
+nutrients_biplot <- autoplot(nutrients_pca,
+                      colour = NA,
+                      loadings.label = TRUE,
+                      loadings.label.size = 3,
+                      loadings.label.colour = "black",
+                      loadings.label.repel = TRUE) + # forces labels to "repel" each other a little
+  theme_minimal()
+
+nutrients_biplot
 
 ```
-

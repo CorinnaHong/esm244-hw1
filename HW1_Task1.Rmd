@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ```{r, load packages}
 
+# Load packages
+
 library(tidyverse)
 library(kableExtra)
 library(janitor)
@@ -21,18 +23,21 @@ library(janitor)
 
 ```{r, read in data}
 
+# Read in data
+
 showshoe_hares <- read_csv("showshoe_lter.csv")
+unique(showshoe_hares$sex) # check unique values of `sex` column in original data
 
 ```
 
-```{r}
+```{r, wrangle data}
 
-unique(showshoe_hares$sex) # check unique values of `sex` column in original data
+# Wrangle data
 
 hares_wrangle <- showshoe_hares %>% 
   filter(!is.na(sex)) %>% # remove NAs in sex column %>% 
   mutate(sex = str_to_upper(sex)) %>% 
-  filter(sex %in% c("M", "F"))  %>% # look for anything in sex column matching "M" or "F" This is how I am getting rid of "?" and "PF"
+  filter(sex %in% c("M", "F"))  %>% # look for anything in sex column matching "M"/"F" This is how I am getting rid of "?" and "PF"
   filter(!is.na(weight)) # remove NAs in weight column
 
 unique(hares_wrangle$sex) # check unique values of 'sex' column in wrangled data
@@ -40,6 +45,8 @@ unique(hares_wrangle$sex) # check unique values of 'sex' column in wrangled data
 ```
 
 ```{r, plot data, fig.align = 'center'}
+
+# Create graph
 
 hare_boxplot <- ggplot(hares_wrangle, aes(x = sex, y = weight)) +
   geom_boxplot() +
@@ -53,6 +60,8 @@ hare_boxplot
 
 ```{r, summary statistics}
 
+# Create summary statistics
+
 hares_summary <- hares_wrangle %>% 
   group_by(sex) %>% 
   summarize(
@@ -64,6 +73,8 @@ hares_summary <- hares_wrangle %>%
 ```
 
 ```{r, finalize table}
+
+# Create final table
 
 hares_table <- kable(hares_summary, caption = "Summary Table of Showshoe Hares", 
                      col.names = c("Sex","Mean Weight (g)","Standard Deviation (g)","Sample Size")) %>% # rename columns
