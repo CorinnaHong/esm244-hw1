@@ -58,7 +58,7 @@ unique(snowshoe_hares$sex) # check unique values of `sex` column in original dat
 # Wrangle data
 
 hares_wrangle <- snowshoe_hares %>% 
-  filter(!is.na(sex)) %>% # remove NAs in sex column %>% 
+  filter(!is.na(sex)) %>% # remove NAs in sex column
   mutate(sex = str_to_upper(sex)) %>% # Make everything in sex column uppercase
   filter(sex %in% c("M", "F"))  %>% # look for anything in sex column matching "M"/"F" This is how I am getting rid of "?" and "PF"
   filter(!is.na(weight)) # remove NAs in weight column
@@ -81,7 +81,7 @@ hare_boxplot
 
 ```
 
-The distrubiton of female and male snowshoe hare weights look pretty similar to each other. Median snowshow hare weight (g) between female and male hares is shown by the center line in the box. The boxes are bounded by the 25th and 75th percentile and the whiskers extend to the last weight observation within one step. These elements of the plot also look pretty close between female and male snowshoe hares, with female snowshoe hares having a slightly wider range in body weights.
+The distrubiton of female and male snowshoe hare weights look pretty similar to each other. Median snowshow hare weight (g) between female and male hares is shown by the center line in the box. The boxes are bounded by the 25th and 75th percentile and the whiskers extend to the last weight observation within one step. These elements of the plot look pretty close between female and male snowshoe hares, with female snowshoe hares having a slightly wider range in body weights.
 
 ```{r, summary statistics}
 

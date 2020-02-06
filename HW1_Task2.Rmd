@@ -68,7 +68,7 @@ nutrients_wrangle <- nutrients %>%
 
 # Explore missings before running PCA
 
-naniar::gg_miss_var(nutrients_wrangle) # graph shows how many NA's for each variable (showed none for the data I have selected)
+naniar::gg_miss_var(nutrients_wrangle) # graph shows how many NA's for each variable (showed none for the data I selected)
 
 ```
 
@@ -83,7 +83,7 @@ summary(nutrients_pca) # Proportion of variance explained by each PC
 
 ```
 
-```{r, fig.align = "center", fig.cap = "**Figure 1. PCA biplot of nutrients in legumes and legume prodcuts.** Line biplot visualizing PCA results for nutrients in legumes and legume products. Lengths of each line indicate variances in the respective PC direction and angles between lines indicate correlation between nutrients. Data accessed at: https://fdc.nal.usda.gov/"}
+```{r, fig.align = "center", fig.cap = "**Figure 1. PCA biplot of nutrients in legumes and legume products.** Line biplot visualizing PCA results for nutrients in legumes and legume products. Lengths of each line indicate variances in the respective PC direction and angles between lines indicate correlation between nutrients. Data accessed at: https://fdc.nal.usda.gov/"}
 
 nutrients_biplot <- autoplot(nutrients_pca,
                       colour = NA,
@@ -100,11 +100,11 @@ nutrients_biplot
 Major takeaways from PCA and biplot:
 <br>
 
-- Vitamin A, vitamin E, and Vitamin B6 have a correlation of 1 with each other.
+- Vitamin A, vitamin E, and vitamin B6 have a correlation of 1 with each other.
 - Protein and zinc have a correlation of 1 with each other.
-- vitamin A, vitamin E, and Vitamin B6 have a correlation of -1 with vitamin c.
+- Vitamin A, vitamin E, and vitamin B6 have a correlation of -1 with vitamin C.
 - Iron and phosphorus are positively correlated.
-- Sugar and carbs are positivel correlated.
+- Sugar and carbs are positively correlated.
 - Vitamin B12 and energy have a correlation of 0.
 
 <br>
