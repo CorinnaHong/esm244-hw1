@@ -1,5 +1,5 @@
 ---
-title: "HW1_Task1"
+title: "Snowshoe Hares"
 author: "Corinna Hong"
 date: "January 29, 2020"
 output: html_document
@@ -10,6 +10,11 @@ knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE,
                       message = FALSE)
 ```
+
+
+Snowshoe hares are prevalent in northern boreal forests, such as those in Alaska. Capture-release studies conducted from 1999 to 2002 in Alaska's Bonanza Creek Experimental Forest collected physical data on this species. This project visualizes this physical data in a box-and-whisker plot with a jitter overlay.
+
+![Alt text] (\Users\Corinna\Documents\Bren\snowshow_hares_nps.jpg)
 
 ```{r, load packages}
 
@@ -25,8 +30,8 @@ library(janitor)
 
 # Read in data
 
-showshoe_hares <- read_csv("showshoe_lter.csv")
-unique(showshoe_hares$sex) # check unique values of `sex` column in original data
+snowshoe_hares <- read_csv("showshoe_lter.csv")
+unique(snowshoe_hares$sex) # check unique values of `sex` column in original data
 
 ```
 
@@ -34,7 +39,7 @@ unique(showshoe_hares$sex) # check unique values of `sex` column in original dat
 
 # Wrangle data
 
-hares_wrangle <- showshoe_hares %>% 
+hares_wrangle <- snowshoe_hares %>% 
   filter(!is.na(sex)) %>% # remove NAs in sex column %>% 
   mutate(sex = str_to_upper(sex)) %>% 
   filter(sex %in% c("M", "F"))  %>% # look for anything in sex column matching "M"/"F" This is how I am getting rid of "?" and "PF"
@@ -43,7 +48,7 @@ hares_wrangle <- showshoe_hares %>%
 unique(hares_wrangle$sex) # check unique values of 'sex' column in wrangled data
 
 ```
-
+Kielland K., F. S. Chapin, R. W. Ruess. 2017. Snowshoe hare physical data in Bonanza Creek Experimental Forest: 1999-Present. Environmental Data Initiative. https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14.
 ```{r, plot data, fig.align = 'center'}
 
 # Create graph
@@ -52,7 +57,7 @@ hare_boxplot <- ggplot(hares_wrangle, aes(x = sex, y = weight)) +
   geom_boxplot() +
   geom_jitter(width = 0.1, alpha = 0.3, aes(color = sex)) + # Width of jitter, opacity(alpha) of dots, color coding by sex
   theme_classic() +
-  labs (x = "Sex", y = "Body weight (g)", color = "Sex", title = "Box-and-Whisker Plot with Overlying Jitter of Showshoe Hare Body Mass")
+  labs (x = "Sex", y = "Body weight (g)", color = "Sex", title = "Snowshoe Hare Body Mass Box-and-Whisker Plot with Overlying Jitter")
 
 hare_boxplot
 
@@ -76,7 +81,7 @@ hares_summary <- hares_wrangle %>%
 
 # Create final table
 
-hares_table <- kable(hares_summary, caption = "Summary Table of Showshoe Hares", 
+hares_table <- kable(hares_summary, caption = "Summary Table of Snowshoe Hares", 
                      col.names = c("Sex","Mean Weight (g)","Standard Deviation (g)","Sample Size")) %>% # rename columns
   kable_styling(full_width = F, position = "center") # Decrease table width and centers it
 
