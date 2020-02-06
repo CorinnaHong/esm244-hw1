@@ -1,5 +1,5 @@
 ---
-title: "HW1_Task2"
+title: "Legume Nutrients"
 author: "Corinna Hong"
 date: "February 1, 2020"
 output: html_document
@@ -10,6 +10,28 @@ knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE,
                       message = FALSE)
 ```
+
+<br>
+
+The U.S. Department of Agriculture's FoodData Central analyzes and compiles nutrient and food component data for a wide variety of foods and beverages (U.S. Department of Agriculture, 2019). The dataset used for this project contains nutrient information for raw fruits and vegetables. This project will use the ordination method of principle component analysis to explore similarities and differences in legume and legume product nutrients.   
+
+<center>
+
+![Sacks of legumes. <br> Photo by Viktor Smith from Pexels. Retrieved from: https://www.pexels.com/photo/assorted-color-beans-in-sack-1393382/](legumes.jpeg){width=650px}
+
+</center>
+
+
+<style>
+p.caption {
+  font-size: 0.9em;
+  font-style: italic;
+  color: grey;
+  margin-right: 10%;
+  margin-left: 14%;  
+  text-align: left;
+}
+</style>
 
 
 ```{r, load packages}
@@ -42,29 +64,26 @@ nutrients_wrangle <- nutrients %>%
 
 ```
 
-```{r, explore missings}
+```{r, explore missings, fig.show = "hide"}
 
 # Explore missings before running PCA
 
-naniar::gg_miss_var(nutrients_wrangle) # graph to show you how many NA's for each variable (there are none for the data I have selected)
-
-## FIND A WAY TO HIDE THIS OUTPUT
+naniar::gg_miss_var(nutrients_wrangle) # graph shows how many NA's for each variable (showed none for the data I have selected)
 
 ```
 
-```{r, run PCA}
+```{r, run PCA, results = "hide"}
 
 # PCA for nutrients in Legumes and Legume products
 
 nutrients_pca <- prcomp(nutrients_wrangle, scale = TRUE)
 nutrients_pca # Gives loading for every PC
 summary(nutrients_pca) # Proportion of variance explained by each PC
-
-# FIND WAY TO HIDE OUTPUT 
+# PC1 and PC2 together account for 47.98% of variance
 
 ```
 
-```{r}
+```{r, fig.align = "center", fig.cap = "**Figure 1. PCA biplot of nutrients in legumes and legume prodcuts.** Line biplot visualizing PCA results for nutrients in legumes and legume products. Lengths of each line indicate variances in the respective PC direction and angles between lines indicate correlation between nutrients. Data accessed at: https://fdc.nal.usda.gov/"}
 
 nutrients_biplot <- autoplot(nutrients_pca,
                       colour = NA,
@@ -77,3 +96,18 @@ nutrients_biplot <- autoplot(nutrients_pca,
 nutrients_biplot
 
 ```
+<br>
+Major takeaways from PCA and biplot:
+<br>
+
+- Vitamin A, vitamin E, and Vitamin B6 have a correlation of 1 with each other.
+- Protein and zinc have a correlation of 1 with each other.
+- vitamin A, vitamin E, and Vitamin B6 have a correlation of -1 with vitamin c.
+- Iron and phosphorus are positively correlated.
+- Sugar and carbs are positivel correlated.
+- Vitamin B12 and energy have a correlation of 0.
+
+<br>
+**References:**
+<br>
+U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. https://fdc.nal.usda.gov/.
