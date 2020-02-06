@@ -117,7 +117,6 @@ hares_table
 These exploratory summary statistics indicate that the mean weight (g) of female snowshoe hares is greater than that of males. This trend is also reflected in the median weight for female and male hares. After visualizing this data with a box-and-whisker plot, these summary statistics are not suprising. 
 
 <br>
-
 **References:**
 <br>
 Kielland, K., Chapin, F. S., and Ruess, R. W. (2017). Snowshoe hare physical data in Bonanza Creek Experimental Forest: 1999-Present. [Data set]. Envrionmental Data Initiative. https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14.
